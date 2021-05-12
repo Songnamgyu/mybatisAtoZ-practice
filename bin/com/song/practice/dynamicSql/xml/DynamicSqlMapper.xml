@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.song.practice.dynamicSql.xml.DynamicSqlMapper">
+
+	<resultMap type="com.song.practice.dynamicSql.common.GoodsDTO" id="goodsResultMap">
+		<id property="no" column="GOODS_NO"/>
+		<result property="name" column="GOODS_NAME"/>
+		<result property="price" column="GOODS_PRICE"/>
+		<result property="writerNo" column="GOODS_WRITER_MEMBER_NO"/>
+		<result property="typeNo" column="GOODS_TYPE_NO"/>
+		<result property="createdDate" column="CREATED_DATE"/>
+		<result property="status" column="GOODS_STATUS"/>
+		<result property="modifiedDate" column="MODIFIED_DATE"/>
+	</resultMap>
+	
+	<select id="selectGoodsList" parameterType="hashmap" resultMap="goodsResultMap">
+       SELECT
+              A.GOODS_NO
+            , A.GOODS_NAME
+            , A.GOODS_PRICE
+            , A.GOODS_WRITER_MEMBER_NO
+            , A.GOODS_TYPE_NO
+            , A.CREATED_DATE
+            , A.GOODS_STATUS
+            , A.MODIFIED_DATE
+        FROM MG_GOODS A
+       WHERE A.GOODS_STATUS = 'Y'
+       <if test="price gte 0 and price lte 10000">
+       <![CDATA[
+       	AND A.GOODS_PRICE > #{price}
+       ]]>
+       </if>
+       <if test="price gt 10000 and price lte 20000">
+       	AND A.GOODS_PRICE 10000 BETWEEN AND #{price}
+       </if>
+       <if test="price gt 20000 and price lte 30000">
+       	AND A.GOODS_PRICE 20000 BETWEEN AND #{price}
+       </if>
+       <if test="prict gt 30000">
+       	AND A.GOODS_PRICE BETWEEN 30000 AND #{price}
+       </if>
+     ORDER BY A.GOODS_NO         	
+	</select>
+
+</mapper>
