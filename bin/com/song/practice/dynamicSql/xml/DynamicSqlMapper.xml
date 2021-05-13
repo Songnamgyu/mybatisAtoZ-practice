@@ -42,4 +42,27 @@
      ORDER BY A.GOODS_NO         	
 	</select>
 
+	<select id="searchMenu" resultMap="goodsResultMap" parameterType="SearchCriteria">
+       SELECT
+              A.GOODS_NO
+            , A.GOODS_NAME
+            , A.GOODS_PRICE
+            , A.GOODS_WRITER_MEMBER_NO
+            , A.GOODS_TYPE_NO
+            , A.CREATED_DATE
+            , A.GOODS_STATUS
+            , A.MODIFIED_DATE
+         FROM MG_GOODS A
+        <if test="condition == 'typeNo'">
+         JOIN MG_GOODS_TYPE B ON (A.GOODS_TYPE_NO = B.GOODS_TYPE_NO)
+        </if>
+        WHERE A.GOODS_STATUS = 'Y'
+        <if test="condition == 'name'">
+          AND A.GOODS_NAME = '%' || #{value} || '%'
+        </if>
+        <if test="condition == 'typeNo'">
+          AND B.GOODS_TYPE_NAME = #{value}
+        </if>
+        ORDER BY A.GOODS_NO       	
+	</select>
 </mapper>
