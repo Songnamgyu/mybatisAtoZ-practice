@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.song.practice.dynamicSql.common.GoodsDTO;
+import com.song.practice.dynamicSql.common.SearchCriteria;
 public class MenuService {
 
 	public void showMenu(int price) {
@@ -33,9 +34,28 @@ public class MenuService {
 		}else {
 			System.out.println("존재하지않습니다");
 		}
-		
+
 		sqlSession.close();
 
+	}
+
+	public void searchMenu(SearchCriteria SearchCriteria) {
+
+		SqlSession sqlSession = getSqlSession();
+
+		DynamicSqlMapper mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+
+		List<GoodsDTO> goodsList = mapper.searchMenu(SearchCriteria);
+
+		if(goodsList != null && goodsList.size() > 0) {
+			for(GoodsDTO goods : goodsList) {
+				System.out.println(goods);
+			}
+		}else {
+			System.out.println("검색기준에 없습니다. 다시한번 확인해주세요~");
+		}
+		
+		sqlSession.close();
 	}
 
 }

@@ -3,6 +3,9 @@
 <configuration>
 
 	<properties resource="connection-info.properties"/>
+	<typeAliases>
+		<typeAlias type="com.song.practice.dynamicSql.common.SearchCriteria" alias="SearchCriteria"/>
+	</typeAliases>
 
 
 

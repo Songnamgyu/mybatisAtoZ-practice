@@ -2,6 +2,8 @@ package com.song.practice.dynamicSql.xml;
 
 import java.util.Scanner;
 
+import com.song.practice.dynamicSql.common.SearchCriteria;
+
 public class Application {
 
 	public static void main(String[] args) {
@@ -20,7 +22,7 @@ public class Application {
 			
 			switch(no) {
 			case 1 : ifSubMenu(); break;
-			case 2 : break;
+			case 2 : chooseSubMenu(); break;
 			case 3 : break;
 			case 4 : break;
 			case 9 : break;
@@ -45,7 +47,7 @@ public class Application {
 			int no = sc.nextInt();
 			switch(no) {
 			case 1 : menuService.showMenu(inputPrice()); break;
-			case 2 : break;
+			case 2 : menuService.searchMenu(inputSearchCriteria()); break;
 			case 9 : break;
 			}
 			
@@ -59,5 +61,30 @@ public class Application {
 		int price = sc.nextInt();
 		
 		return price;
+	}
+	
+	private static SearchCriteria inputSearchCriteria() {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("검색 기준을 입력해주세요 (name or typeNo)");
+		String condition = sc.nextLine();
+		System.out.println("검색어를 입력해주세요 : ");
+		String value = sc.nextLine();
+		
+		return new SearchCriteria(condition, value);
+		
+	}
+	
+	private static void chooseSubMenu() {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1. 카테고리 상위별로 입력을해주세요 (벌크업식단, 다이어트식단, 유지어터식단, 혜자식단");
+		System.out.println("9. 이전 메뉴로 ");
+		int no  = sc.nextInt();
+		
+		switch(no) {
+		case 1 : break;
+		case 2 : break;
+		}
 	}
 }
