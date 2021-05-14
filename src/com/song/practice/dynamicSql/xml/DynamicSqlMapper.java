@@ -12,4 +12,6 @@ public interface DynamicSqlMapper {
 
 	List<GoodsDTO> searchMenu(SearchCriteria searchCriteria);
 
+	List<GoodsDTO> selectMenuBySupCategory(SearchCriteria inputSupCategory);
+
 }
