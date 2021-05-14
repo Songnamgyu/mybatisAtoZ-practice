@@ -65,4 +65,33 @@
         </if>
         ORDER BY A.GOODS_NO       	
 	</select>
+	
+	<select id="selectMenuBySupCategory" parameterType="SearchCriteria" resultMap="goodsResultMap">
+       SELECT
+              A.GOODS_NO
+            , A.GOODS_NAME
+            , A.GOODS_PRICE
+            , A.GOODS_WRITER_MEMBER_NO
+            , A.GOODS_TYPE_NO
+            , A.CREATED_DATE
+            , A.GOODS_STATUS
+            , A.MODIFIED_DATE
+         FROM MG_GOODS A
+        WHERE A.GOODS_STATUS = 'Y'      	
+       <choose>
+       	<when test="value == '벌크업식단'">
+       	  AND A.GOODS_TYPE_NO = 10
+       	</when>
+       	<when test="value == '다이어트식단'">
+       	  AND A.GOODS_TYPE_NO = 20
+       	</when>
+       	<when test="value == '유지어터식단'">
+       	  AND A.GOODS_TYPE_NO = 30
+       	</when>
+       	<otherwise>
+       	  AND A.GOODS_TYPE_NO = 777
+       	</otherwise>
+       </choose>  
+        ORDER BY A.GOODS_NO
+	</select>
 </mapper>

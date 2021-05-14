@@ -78,13 +78,27 @@ public class Application {
 	private static void chooseSubMenu() {
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("1. 카테고리 상위별로 입력을해주세요 (벌크업식단, 다이어트식단, 유지어터식단, 혜자식단");
+		MenuService menuService = new MenuService();
+		System.out.println("=============== choose 서브메뉴 ==================");
+		System.out.println("1. 카테고리를 선택해주세요 (1.벌크업식단, 2.다이어트식단, 3.유지어터식단, 4.숨겨둔혜자식단");		
 		System.out.println("9. 이전 메뉴로 ");
+		System.out.println("번호를 입력해주세요 ");
 		int no  = sc.nextInt();
 		
+		
 		switch(no) {
-		case 1 : break;
+		case 1 : menuService.selectMenuBySupCategory(inputSupCategory()); break;
 		case 2 : break;
 		}
+	}
+	
+	private static SearchCriteria inputSupCategory() {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("상위분류를 입력하세요 : 벌크업식단, 다이어트식단, 유지어터식단, 숨겨둔혜자식단");
+		String value = sc.nextLine();
+		
+		
+		return new SearchCriteria("typeNo", value );
 	}
 }
